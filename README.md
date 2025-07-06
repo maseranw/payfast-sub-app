@@ -1,4 +1,4 @@
-# SubApp - Supabase + PayFast Subscription App
+# PayfastReactSubscribeApp - Supabase + PayFast Subscription App
 
 This application serves as a comprehensive example demonstrating how to integrate and use the @ngelekanyo/payfast-subscribe-client package. It showcases a modern subscription management platform built with React, TypeScript, and Supabase, featuring PayFast payment processing, secure user management, and premium feature gating with a polished dark/light theme.
 

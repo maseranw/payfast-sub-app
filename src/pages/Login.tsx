@@ -55,7 +55,7 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
-            SubApp
+            Payfast React Subscribe App
           </h2>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
             {isSignUp ? 'Create your account' : 'Welcome back'}

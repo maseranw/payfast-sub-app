@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              SubApp
+              Payfast React Subscribe App
             </Link>
             <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-md">
               A powerful subscription management platform with premium features for text manipulation and creative tools. 
@@ -83,7 +83,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              © {currentYear} SubApp. All rights reserved.
+              © {currentYear} Payfast React Subscribe App. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors">
