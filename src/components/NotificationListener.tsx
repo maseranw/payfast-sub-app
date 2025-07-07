@@ -7,17 +7,21 @@ const NotificationListener = () => {
 
   useEffect(() => {
     if (!socket) {
-      console.log("❌ No socket");
+      console.log("❌ No socket instance yet.");
       return;
     }
 
-    socket.on("subscription_cancelled", (data) => {
-      console.log("❌ Subscription cancelled:", data);
-      toast.success("❌ Subscription cancelled:", data);
-    });
+    console.log("✅ Socket ready, setting up listener");
+
+    const handleCancel = (data: any) => {
+      console.log("📨 Received subscription_cancelled:", data);
+      toast.success(`❌ Subscription cancelled: ${data.subscriptionId}`);
+    };
+
+    socket.on("subscription_cancelled", handleCancel);
 
     return () => {
-      socket.off("subscription_cancelled");
+      socket.off("subscription_cancelled", handleCancel);
     };
   }, [socket]);
 
