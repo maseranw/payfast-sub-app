@@ -43,10 +43,18 @@ jobs:
             -t dokofala.azurecr.io/dokofala-app:latest \
             .
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App using Azure login
         uses: azure/webapps-deploy@v2
         with:
-          app-name: dokofala                     
+          app-name: dokofala
           slot-name: Production
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: dokofala.azurecr.io/dokofala-app:${{ steps.get_version.outputs.version }}
+
+
+      # - name: Deploy to Azure Web App
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: dokofala                     
+      #     slot-name: Production
+      #     publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+      #     images: dokofala.azurecr.io/dokofala-app:${{ steps.get_version.outputs.version }}
