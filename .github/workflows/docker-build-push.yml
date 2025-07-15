@@ -1,0 +1,35 @@
+name: Build and Push Docker Image to ACR
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU for multi-arch builds
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: dokofala.azurecr.io
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push Docker image (linux/amd64)
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            --push \
+            -t dokofala.azurecr.io/dokofala-app:latest \
+            .
+
