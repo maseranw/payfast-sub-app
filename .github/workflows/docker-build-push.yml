@@ -23,7 +23,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: dokofala.azurecr.io
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
 
       - name: Build and push Docker image (linux/amd64)
         run: |
