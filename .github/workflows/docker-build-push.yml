@@ -1,9 +1,12 @@
 name: Build, Push, and Deploy to Azure Web App
 
+# on:
+#   push:
+#     branches:
+#       - test 
+
 on:
-  push:
-    branches:
-      - test  # Change this to your deployment branch, e.g. main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
