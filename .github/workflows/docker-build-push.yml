@@ -6,6 +6,9 @@ name: Build, Push, and Deploy to Azure Web App
 #       - test 
 
 on:
+  push:
+    branches:
+      - test
   workflow_dispatch:
 
 jobs:
