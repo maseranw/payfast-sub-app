@@ -80,11 +80,11 @@ const Cancel = () => {
       case 'checking':
         return (
           <>
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-6">
-              <RefreshCw className="h-8 w-8 text-blue-600 animate-spin" />
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-600 mb-8">
+              <RefreshCw className="h-8 w-8 text-white animate-spin" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Checking Status...</h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <h1 className="text-4xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">Checking Status...</h1>
+            <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
               Hold on while we confirm your subscription status.
             </p>
           </>
@@ -93,19 +93,19 @@ const Cancel = () => {
       case 'success':
         return (
           <>
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
-              <CheckCircle className="h-8 w-8 text-green-600" />
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-600 mb-8">
+              <CheckCircle className="h-8 w-8 text-white" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Subscription Active</h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <h1 className="text-4xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">Subscription Active</h1>
+            <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
               Your payment actually went through successfully. You now have access to premium features.
             </p>
             <Link
               to="/dashboard"
-              className="inline-flex items-center px-6 py-3 rounded-lg text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-all duration-150 hover:scale-105 active:scale-95"
             >
               Go to Dashboard
-              <ArrowLeft className="ml-2 h-5 w-5 rotate-180" />
+              <ArrowLeft className="h-4 w-4 rotate-180" strokeWidth={2} />
             </Link>
           </>
         )
@@ -113,12 +113,12 @@ const Cancel = () => {
       case 'pending':
         return (
           <>
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-6">
-              <AlertTriangle className="h-8 w-8 text-yellow-600" />
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-amber-500 mb-8">
+              <AlertTriangle className="h-8 w-8 text-neutral-950" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Payment Processing...</h1>
-            <p className="text-lg text-gray-600 mb-8">
-              We’re still waiting for confirmation. Please wait a moment.
+            <h1 className="text-4xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">Payment Processing...</h1>
+            <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
+              We're still waiting for confirmation. Please wait a moment.
               {retryCount > 0 && ` (Attempt ${retryCount + 1}/${maxRetries + 1})`}
             </p>
           </>
@@ -127,55 +127,53 @@ const Cancel = () => {
       default: // 'cancelled' or 'failed'
         return (
           <>
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-6">
-              <XCircle className="h-8 w-8 text-red-600" />
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-600 mb-8">
+              <XCircle className="h-8 w-8 text-white" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Payment Cancelled</h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <h1 className="text-4xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">Payment Cancelled</h1>
+            <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
               Your payment was cancelled or did not complete. No charges were made.
             </p>
 
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-gray-200 mb-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">What happened?</h2>
-              <div className="text-left space-y-3">
-                <div className="flex items-start">
-                  <XCircle className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
-                  <span className="text-gray-700">Payment process was interrupted or cancelled</span>
+            <div className="bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none p-8 mb-10 text-left">
+              <h2 className="text-lg font-extrabold tracking-tight text-neutral-950 dark:text-white mb-5">What happened?</h2>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <XCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" strokeWidth={2} />
+                  <span className="text-neutral-600 dark:text-neutral-300">Payment process was interrupted or cancelled</span>
                 </div>
-                <div className="flex items-start">
-                  <XCircle className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
-                  <span className="text-gray-700">No charges were made to your account</span>
+                <div className="flex items-start gap-3">
+                  <XCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" strokeWidth={2} />
+                  <span className="text-neutral-600 dark:text-neutral-300">No charges were made to your account</span>
                 </div>
-                <div className="flex items-start">
-                  <XCircle className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
-                  <span className="text-gray-700">You can try subscribing again</span>
+                <div className="flex items-start gap-3">
+                  <XCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" strokeWidth={2} />
+                  <span className="text-neutral-600 dark:text-neutral-300">You can try subscribing again</span>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="flex flex-col items-center gap-5">
               <button
                 onClick={handleRetry}
-                className="inline-flex items-center px-6 py-3 rounded-lg text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-all duration-150 hover:scale-105 active:scale-95"
               >
-                <RefreshCw className="mr-2 h-5 w-5" />
+                <RefreshCw className="h-4 w-4" strokeWidth={2} />
                 Check Again
               </button>
               <Link
                 to="/subscribe"
-                className="inline-flex items-center px-6 py-3 text-white rounded-lg bg-gray-700 hover:bg-gray-800 transition"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-neutral-950 dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-150 hover:scale-105 active:scale-95"
               >
                 Try Again
               </Link>
-              <div>
-                <Link
-                  to="/dashboard"
-                  className="inline-flex items-center text-gray-600 hover:text-gray-900 transition"
-                >
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Dashboard
-                </Link>
-              </div>
+              <Link
+                to="/dashboard"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-500 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-all duration-150 hover:scale-105 active:scale-95"
+              >
+                <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+                Back to Dashboard
+              </Link>
             </div>
           </>
         )
@@ -183,9 +181,11 @@ const Cancel = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="text-center">
-        {renderContent()}
+    <div className="min-h-screen bg-white dark:bg-black">
+      <div className="max-w-2xl mx-auto px-6 py-24">
+        <div className="text-center animate-fade-in-up">
+          {renderContent()}
+        </div>
       </div>
     </div>
   )

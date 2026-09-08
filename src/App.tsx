@@ -10,6 +10,10 @@ import Subscribe from './pages/Subscribe'
 import Contact from './pages/Contact'
 import Success from './pages/Success'
 import Cancel from './pages/Cancel'
+import Profile from './pages/Profile'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
+import Security from './pages/Security'
 
 function App() {
   return (
@@ -21,6 +25,9 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/success" element={<Success />} />
               <Route path="/cancel" element={<Cancel />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/security" element={<Security />} />
               <Route
                 path="/dashboard"
                 element={
@@ -45,6 +52,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </Layout>
@@ -55,9 +70,24 @@ function App() {
               style: {
                 background: 'var(--toast-bg)',
                 color: 'var(--toast-color)',
-                border: '1px solid var(--toast-border)',
-                borderRadius: '0.5rem',
-                fontSize: '0.875rem',
+                border: 'none',
+                borderRadius: '9999px',
+                fontSize: '0.8125rem',
+                fontWeight: 700,
+                padding: '0.875rem 1.5rem',
+                boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.35)',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#16a34a',
+                  secondary: 'var(--toast-bg)',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#dc2626',
+                  secondary: 'var(--toast-bg)',
+                },
               },
             }}
           />

@@ -37,13 +37,15 @@ type PayFastActionResult = Awaited<
   ReturnType<PayFastServiceInstance["pauseSubscription"]>
 >;
 
+export type SubscriptionActionName = "cancel" | "pause" | "resume";
+
 export interface UseSubscriptionActionsResult {
   subscribe: (plan: SubscribeActionPlan) => Promise<void>;
   cancel: () => Promise<void>;
   pause: () => Promise<void>;
   resume: () => Promise<void>;
   subscribingPlanId: string | null;
-  actionLoading: boolean;
+  loadingAction: SubscriptionActionName | null;
   error: string | null;
 }
 
@@ -54,7 +56,7 @@ export function useSubscriptionActions({
   refreshUserData,
 }: UseSubscriptionActionsParams): UseSubscriptionActionsResult {
   const [subscribingPlanId, setSubscribingPlanId] = useState<string | null>(null);
-  const [actionLoading, setActionLoading] = useState(false);
+  const [loadingAction, setLoadingAction] = useState<SubscriptionActionName | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const subscribe = useCallback(
@@ -132,6 +134,7 @@ export function useSubscriptionActions({
 
   const runSubscriptionAction = useCallback(
     async (
+      actionName: SubscriptionActionName,
       action: (
         payfast: PayFastServiceInstance,
         token: string
@@ -148,7 +151,7 @@ export function useSubscriptionActions({
       }
 
       setError(null);
-      setActionLoading(true);
+      setLoadingAction(actionName);
       try {
         const payfast = new PayFastService();
         const response = await action(payfast, subscription.payfast_token);
@@ -167,7 +170,7 @@ export function useSubscriptionActions({
         setError(message);
         toast.error(message);
       } finally {
-        setActionLoading(false);
+        setLoadingAction(null);
       }
     },
     [subscription, refreshUserData]
@@ -176,6 +179,7 @@ export function useSubscriptionActions({
   const cancel = useCallback(async () => {
     const subscriptionId = subscription?.id;
     await runSubscriptionAction(
+      "cancel",
       (payfast, token) => payfast.cancelSubscriptionById(token, subscriptionId!),
       "Cannot cancel subscription: missing PayFast token",
       "Cancellation failed",
@@ -186,6 +190,7 @@ export function useSubscriptionActions({
 
   const pause = useCallback(async () => {
     await runSubscriptionAction(
+      "pause",
       (payfast, token) => payfast.pauseSubscription(token),
       "Cannot pause subscription: missing PayFast token",
       "Pause failed",
@@ -196,6 +201,7 @@ export function useSubscriptionActions({
 
   const resume = useCallback(async () => {
     await runSubscriptionAction(
+      "resume",
       (payfast, token) => payfast.unpauseSubscription(token),
       "Cannot resume subscription: missing PayFast token",
       "Resume failed",
@@ -210,7 +216,7 @@ export function useSubscriptionActions({
     pause,
     resume,
     subscribingPlanId,
-    actionLoading,
+    loadingAction,
     error,
   };
 }

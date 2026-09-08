@@ -23,7 +23,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!user || !userProfile) {
       toast.error('Please sign in to send a message')
       return
@@ -62,43 +62,43 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center">
-          <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
-            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+      <div className="max-w-2xl mx-auto px-6 py-24">
+        <div className="text-center animate-fade-in-up">
+          <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-600 mb-8 animate-scale-in">
+            <CheckCircle className="h-8 w-8 text-white" strokeWidth={2} />
           </div>
-          
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+
+          <h1 className="text-4xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">
             Message Sent Successfully!
           </h1>
-          
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
+
+          <p className="text-lg text-neutral-500 dark:text-neutral-400 mb-10">
             Thank you for contacting us. We've received your message and will get back to you within 24 hours.
           </p>
-          
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700 mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+
+          <div className="bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none p-8 mb-10 text-left">
+            <h2 className="text-lg font-extrabold tracking-tight text-neutral-950 dark:text-white mb-5">
               What happens next?
             </h2>
-            <div className="text-left space-y-3">
-              <div className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5" />
-                <span className="text-gray-700 dark:text-gray-300">Our support team will review your message</span>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 shrink-0" strokeWidth={2} />
+                <span className="text-neutral-600 dark:text-neutral-300">Our support team will review your message</span>
               </div>
-              <div className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5" />
-                <span className="text-gray-700 dark:text-gray-300">You'll receive a response via email</span>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 shrink-0" strokeWidth={2} />
+                <span className="text-neutral-600 dark:text-neutral-300">You'll receive a response via email</span>
               </div>
-              <div className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5" />
-                <span className="text-gray-700 dark:text-gray-300">Typical response time is under 24 hours</span>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 shrink-0" strokeWidth={2} />
+                <span className="text-neutral-600 dark:text-neutral-300">Typical response time is under 24 hours</span>
               </div>
             </div>
           </div>
-          
+
           <button
             onClick={() => setIsSubmitted(false)}
-            className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors"
+            className="inline-flex items-center px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-all duration-150 hover:scale-105 active:scale-95"
           >
             Send Another Message
           </button>
@@ -108,75 +108,76 @@ const Contact = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="max-w-6xl mx-auto px-6 lg:px-10 py-14">
+      <div className="mb-14 animate-fade-in-up">
+        <p className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3">
+          Support
+        </p>
+        <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-neutral-950 dark:text-white mb-3">
           Contact Us
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-neutral-500 dark:text-neutral-400">
           Have a question or need help? We're here to assist you.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Contact Info */}
-        <div className="lg:col-span-1">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Get in Touch</h2>
-            
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-4 mt-1" />
+        <div className="lg:col-span-1 animate-fade-in-up animate-delay-100">
+          <div className="bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none p-8">
+            <h2 className="text-lg font-extrabold tracking-tight text-neutral-950 dark:text-white mb-8">Get in Touch</h2>
+
+            <div className="space-y-7">
+              <div className="flex items-start gap-4">
+                <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400 mt-1 shrink-0" strokeWidth={2} />
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Email Support</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  <h3 className="font-bold text-neutral-950 dark:text-white">Email Support</h3>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                     Get help with your account, billing, or technical issues.
                   </p>
-                  <p className="text-blue-600 dark:text-blue-400 text-sm mt-2">support@subapp.com</p>
+                  <p className="text-sm text-blue-600 dark:text-blue-400 mt-2 font-semibold">support@subapp.com</p>
                 </div>
               </div>
 
-              <div className="flex items-start">
-                <MessageSquare className="h-6 w-6 text-purple-600 dark:text-purple-400 mr-4 mt-1" />
+              <div className="flex items-start gap-4">
+                <MessageSquare className="h-6 w-6 text-purple-600 dark:text-purple-400 mt-1 shrink-0" strokeWidth={2} />
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Live Chat</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  <h3 className="font-bold text-neutral-950 dark:text-white">Live Chat</h3>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                     Chat with our support team in real-time.
                   </p>
-                  <p className="text-purple-600 dark:text-purple-400 text-sm mt-2">Available 9 AM - 6 PM EST</p>
+                  <p className="text-sm text-purple-600 dark:text-purple-400 mt-2 font-semibold">Available 9 AM - 6 PM EST</p>
                 </div>
               </div>
 
-              <div className="flex items-start">
-                <User className="h-6 w-6 text-green-600 dark:text-green-400 mr-4 mt-1" />
+              <div className="flex items-start gap-4">
+                <User className="h-6 w-6 text-green-600 dark:text-green-400 mt-1 shrink-0" strokeWidth={2} />
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Account Manager</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                  <h3 className="font-bold text-neutral-950 dark:text-white">Account Manager</h3>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                     For enterprise customers and custom solutions.
                   </p>
-                  <p className="text-green-600 dark:text-green-400 text-sm mt-2">enterprise@subapp.com</p>
+                  <p className="text-sm text-green-600 dark:text-green-400 mt-2 font-semibold">enterprise@subapp.com</p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-              <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Quick Response</h4>
-              <p className="text-blue-800 dark:text-blue-400 text-sm">
+            <div className="mt-10 p-5 bg-blue-600">
+              <h4 className="font-bold text-white mb-2 text-sm uppercase tracking-wide">Quick Response</h4>
+              <p className="text-blue-50 text-sm">
                 We typically respond to all inquiries within 24 hours. For urgent issues, please mark your message as high priority.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className="lg:col-span-2">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Send us a Message</h2>
-            
+        <div className="lg:col-span-2 animate-fade-in-up animate-delay-200">
+          <div className="bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none p-8 sm:p-10">
+            <h2 className="text-lg font-extrabold tracking-tight text-neutral-950 dark:text-white mb-8">Send us a Message</h2>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                     Your Name
                   </label>
                   <input
@@ -184,11 +185,11 @@ const Contact = () => {
                     id="name"
                     value={userProfile ? `${userProfile.first_name} ${userProfile.last_name}` : ''}
                     disabled
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 transition-colors duration-150"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                     Email Address
                   </label>
                   <input
@@ -196,14 +197,14 @@ const Contact = () => {
                     id="email"
                     value={user?.email || ''}
                     disabled
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 bg-neutral-100 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 transition-colors duration-150"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                     Subject *
                   </label>
                   <input
@@ -213,12 +214,12 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 bg-white dark:bg-black text-neutral-950 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-950 dark:focus:ring-white transition-colors duration-150"
                     placeholder="Brief description of your inquiry"
                   />
                 </div>
                 <div>
-                  <label htmlFor="priority" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="priority" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                     Priority
                   </label>
                   <select
@@ -226,7 +227,7 @@ const Contact = () => {
                     name="priority"
                     value={formData.priority}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 bg-white dark:bg-black text-neutral-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-neutral-950 dark:focus:ring-white transition-colors duration-150"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -237,7 +238,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                   Message *
                 </label>
                 <textarea
@@ -247,28 +248,28 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-white dark:bg-black text-neutral-950 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-950 dark:focus:ring-white transition-colors duration-150 resize-none"
                   placeholder="Please provide as much detail as possible about your inquiry..."
                 />
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold">
                   * Required fields
                 </p>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-400 transition-all duration-150 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Send className="h-5 w-5 mr-2" />
+                      <Send className="h-4 w-4" strokeWidth={2} />
                       Send Message
                     </>
                   )}

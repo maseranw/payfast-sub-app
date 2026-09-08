@@ -69,14 +69,14 @@ describe("pause", () => {
 
     const { result } = setup();
 
-    expect(result.current.actionLoading).toBe(false);
+    expect(result.current.loadingAction).toBeNull();
 
     let pausePromise!: Promise<void>;
     act(() => {
       pausePromise = result.current.pause();
     });
 
-    await waitFor(() => expect(result.current.actionLoading).toBe(true));
+    await waitFor(() => expect(result.current.loadingAction).toBe("pause"));
     expect(pauseSubscription).toHaveBeenCalledWith("token-123");
 
     await act(async () => {
@@ -84,7 +84,7 @@ describe("pause", () => {
       await pausePromise;
     });
 
-    expect(result.current.actionLoading).toBe(false);
+    expect(result.current.loadingAction).toBeNull();
     expect(result.current.error).toBeNull();
   });
 
@@ -97,7 +97,7 @@ describe("pause", () => {
       await expect(result.current.pause()).resolves.toBeUndefined();
     });
 
-    expect(result.current.actionLoading).toBe(false);
+    expect(result.current.loadingAction).toBeNull();
     expect(result.current.error).toBe("network down");
   });
 
@@ -154,5 +154,26 @@ describe("cancel", () => {
 
     expect(cancelSubscriptionById).toHaveBeenCalledWith("token-123", "sub-1");
     expect(result.current.error).toBeNull();
+  });
+
+  it("only marks cancel as loading, not pause or resume", async () => {
+    const { promise, resolve } = deferred<typeof successResponse>();
+    cancelSubscriptionById.mockReturnValue(promise);
+
+    const { result } = setup();
+
+    let cancelPromise!: Promise<void>;
+    act(() => {
+      cancelPromise = result.current.cancel();
+    });
+
+    await waitFor(() => expect(result.current.loadingAction).toBe("cancel"));
+
+    await act(async () => {
+      resolve(successResponse);
+      await cancelPromise;
+    });
+
+    expect(result.current.loadingAction).toBeNull();
   });
 });

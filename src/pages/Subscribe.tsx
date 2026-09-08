@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
-import { Check, Crown, Loader2, X, Play, Pause } from "lucide-react";
+import { Check, Crown, Loader2, Settings } from "lucide-react";
 import toast from "react-hot-toast";
 import { useSubscriptionActions } from "../hooks/useSubscriptionActions";
-import { canPause, canResume } from "../lib/subscription-status";
 
 interface SubscriptionPlan {
   id: string;
@@ -20,14 +20,12 @@ const Subscribe = () => {
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const {
-    subscribe,
-    cancel,
-    pause,
-    resume,
-    subscribingPlanId,
-    actionLoading,
-  } = useSubscriptionActions({ user, userProfile, subscription, refreshUserData });
+  const { subscribe, subscribingPlanId } = useSubscriptionActions({
+    user,
+    userProfile,
+    subscription,
+    refreshUserData,
+  });
 
   useEffect(() => {
     fetchPlans();
@@ -54,124 +52,93 @@ const Subscribe = () => {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
         <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
+      <div className="text-center mb-14 animate-fade-in-up">
+        <p className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3">
+          Pricing
+        </p>
+        <h1 className="text-4xl sm:text-6xl font-black tracking-tighter text-neutral-950 dark:text-white mb-4">
           Choose Your Plan
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <p className="text-lg text-neutral-500 dark:text-neutral-400">
           Select the perfect plan for your needs
         </p>
       </div>
 
       {subscription && (
-        <div className="mb-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+        <div className="mb-10 bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none p-6 sm:p-8 animate-fade-in-up">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-lg font-extrabold tracking-tight text-neutral-950 dark:text-white mb-2">
                 Current Subscription
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-neutral-500 dark:text-neutral-400 capitalize">
                 {subscription.plan?.name} - {subscription.status}
                 {subscription.cancel_at_period_end &&
                   " (Cancelling at period end)"}
               </p>
             </div>
-            <div className="flex flex-wrap gap-2 sm:space-x-3 sm:gap-0">
-              {canPause(subscription.status) && (
-                <button
-                  onClick={pause}
-                  disabled={actionLoading}
-                  className="flex items-center px-3 sm:px-4 py-2 border border-amber-300 dark:border-amber-700 rounded-lg text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                >
-                  {actionLoading ? (
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  ) : (
-                    <Pause className="h-4 w-4 mr-2" />
-                  )}
-                  Pause
-                </button>
-              )}
-              {canResume(subscription.status) && (
-                <button
-                  onClick={resume}
-                  disabled={actionLoading}
-                  className="flex items-center px-3 sm:px-4 py-2 border border-green-300 dark:border-green-700 rounded-lg text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                >
-                  {actionLoading ? (
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  ) : (
-                    <Play className="h-4 w-4 mr-2" />
-                  )}
-                  Resume
-                </button>
-              )}
-              <button
-                onClick={cancel}
-                disabled={actionLoading}
-                className="flex items-center px-3 sm:px-4 py-2 border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-              >
-                {actionLoading ? (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <X className="h-4 w-4 mr-2" />
-                )}
-                Cancel
-              </button>
-            </div>
+            <Link
+              to="/profile"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-150 hover:scale-105 active:scale-95 shrink-0"
+            >
+              <Settings className="h-4 w-4" strokeWidth={2} />
+              Manage Subscription
+            </Link>
           </div>
         </div>
       )}
 
       <div className="flex flex-col items-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl w-full">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className={`relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 sm:p-8 border transition-all hover:shadow-2xl ${
-                subscription?.plan_id === plan.id
-                  ? "border-blue-500 dark:border-blue-400 ring-2 ring-blue-500 dark:ring-blue-400"
-                  : "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
-              }`}
-            >
-              <div className="absolute inset-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl"></div>
-              <div className="relative">
-                {subscription?.plan_id === plan.id && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl w-full">
+          {plans.map((plan, index) => {
+            const isCurrentPlan = subscription?.plan_id === plan.id;
+            return (
+              <div
+                key={plan.id}
+                style={{ animationDelay: `${index * 100}ms` }}
+                className={`relative p-8 sm:p-10 transition-transform duration-150 hover:-translate-y-1 animate-fade-in-up ${
+                  isCurrentPlan
+                    ? "bg-neutral-950 dark:bg-white shadow-2xl"
+                    : "bg-neutral-50 dark:bg-neutral-950 shadow-xl shadow-neutral-200/50 dark:shadow-none"
+                }`}
+              >
+                {isCurrentPlan && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <div className="bg-blue-600 dark:bg-blue-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
                       Current Plan
                     </div>
                   </div>
                 )}
 
-                <div className="text-center mb-6">
-                  <Crown className="h-12 w-12 text-purple-500 dark:text-purple-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                <div className="text-center mb-8">
+                  <Crown className="h-10 w-10 text-purple-500 dark:text-purple-400 mx-auto mb-5" strokeWidth={1.75} />
+                  <h3 className={`text-2xl font-extrabold tracking-tight mb-2 ${isCurrentPlan ? "text-white dark:text-neutral-950" : "text-neutral-950 dark:text-white"}`}>
                     {plan.name}
                   </h3>
-                  <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1">
+                  <div className={`text-5xl font-black tracking-tighter mb-1 ${isCurrentPlan ? "text-white dark:text-neutral-950" : "text-neutral-950 dark:text-white"}`}>
                     {plan.currency}
                     {plan.price}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 capitalize">
+                  <p className={`capitalize text-sm ${isCurrentPlan ? "text-neutral-300 dark:text-neutral-600" : "text-neutral-500 dark:text-neutral-400"}`}>
                     per {plan.billing_cycle}
                   </p>
                 </div>
 
-                <div className="space-y-4 mb-8">
-                  {plan.features.map((feature, index) => (
-                    <div key={index} className="flex items-center">
-                      <Check className="h-5 w-5 text-green-500 dark:text-green-400 mr-3" />
-                      <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+                <div className="space-y-4 mb-10">
+                  {plan.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center gap-3">
+                      <Check className={`h-5 w-5 shrink-0 ${isCurrentPlan ? "text-green-400 dark:text-green-600" : "text-green-600 dark:text-green-400"}`} strokeWidth={2} />
+                      <span className={`text-sm sm:text-base ${isCurrentPlan ? "text-neutral-200 dark:text-neutral-700" : "text-neutral-600 dark:text-neutral-300"}`}>
                         {feature}
                       </span>
                     </div>
@@ -182,32 +149,28 @@ const Subscribe = () => {
                   onClick={() => subscribe(plan)}
                   disabled={
                     subscribingPlanId === plan.id ||
-                    subscription?.plan_id === plan.id
+                    isCurrentPlan
                   }
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all ${
-                    subscription?.plan_id === plan.id
-                      ? "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                      : `bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed ${
-                          subscribingPlanId === plan.id
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
-                        }`
+                  className={`w-full py-4 rounded-full text-xs font-bold uppercase tracking-wide transition-all duration-150 ${
+                    isCurrentPlan
+                      ? "bg-neutral-800 dark:bg-neutral-200 text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
+                      : `bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`
                   }`}
                 >
                   {subscribingPlanId === plan.id ? (
-                    <div className="flex items-center justify-center">
-                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    <div className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
                       Processing...
                     </div>
-                  ) : subscription?.plan_id === plan.id ? (
+                  ) : isCurrentPlan ? (
                     "Current Plan"
                   ) : (
                     "Subscribe Now"
                   )}
                 </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
