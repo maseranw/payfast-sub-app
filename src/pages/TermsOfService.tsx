@@ -53,8 +53,9 @@ const TermsOfService = () => {
             </p>
             <p>
               <span className="font-bold text-neutral-950 dark:text-white">Cancellation.</span>{" "}
-              Cancelling a subscription does not end it immediately. Your subscription remains
-              active until the end of the current billing period, after which it will not renew.
+              Cancelling a subscription takes effect immediately: the subscription is cancelled
+              with PayFast and access to premium features ends right away. There is no
+              pro-rated refund for the unused portion of the current billing period.
             </p>
             <p>
               <span className="font-bold text-neutral-950 dark:text-white">Pausing.</span>{" "}

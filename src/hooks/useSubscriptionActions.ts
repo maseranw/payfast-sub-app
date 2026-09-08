@@ -183,7 +183,7 @@ export function useSubscriptionActions({
       (payfast, token) => payfast.cancelSubscriptionById(token, subscriptionId!),
       "Cannot cancel subscription: missing PayFast token",
       "Cancellation failed",
-      "Subscription scheduled for cancellation at period end",
+      "Subscription cancelled",
       "Cancel"
     );
   }, [runSubscriptionAction, subscription]);

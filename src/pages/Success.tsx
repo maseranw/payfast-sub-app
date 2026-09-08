@@ -18,7 +18,7 @@ const Success = () => {
     }
   }, [authLoading, user, navigate])
 
-  const checkSubscriptionStatus = async () => {
+  const checkSubscriptionStatus = async (attempt: number) => {
     if (!user) return
 
     try {
@@ -49,10 +49,10 @@ const Success = () => {
         } else if (sub?.status === 'pending') {
           setVerificationStatus('pending')
           // Retry after a delay if we haven't exceeded max retries
-          if (retryCount < maxRetries) {
+          if (attempt < maxRetries) {
             setTimeout(() => {
-              setRetryCount(prev => prev + 1)
-              checkSubscriptionStatus()
+              setRetryCount(attempt + 1)
+              checkSubscriptionStatus(attempt + 1)
             }, 3000) // Wait 3 seconds before retry
           } else {
             setVerificationStatus('failed')
@@ -72,13 +72,13 @@ const Success = () => {
   }
 
   useEffect(() => {
-    checkSubscriptionStatus()
+    checkSubscriptionStatus(0)
   }, [user, searchParams])
 
   const handleRetryCheck = () => {
     setVerificationStatus('checking')
     setRetryCount(0)
-    checkSubscriptionStatus()
+    checkSubscriptionStatus(0)
   }
 
   const renderContent = () => {

@@ -18,7 +18,7 @@ const Cancel = () => {
     }
   }, [authLoading, user, navigate])
 
-  const checkSubscriptionStatus = async () => {
+  const checkSubscriptionStatus = async (attempt: number) => {
     if (!user) return
 
     try {
@@ -43,10 +43,10 @@ const Cancel = () => {
           await refreshUserData()
         } else if (sub?.status === 'pending') {
           setStatus('pending')
-          if (retryCount < maxRetries) {
+          if (attempt < maxRetries) {
             setTimeout(() => {
-              setRetryCount((prev) => prev + 1)
-              checkSubscriptionStatus()
+              setRetryCount(attempt + 1)
+              checkSubscriptionStatus(attempt + 1)
             }, 3000)
           } else {
             setStatus('cancelled')
@@ -66,13 +66,13 @@ const Cancel = () => {
   }
 
   useEffect(() => {
-    checkSubscriptionStatus()
+    checkSubscriptionStatus(0)
   }, [user, searchParams])
 
   const handleRetry = () => {
     setRetryCount(0)
     setStatus('checking')
-    checkSubscriptionStatus()
+    checkSubscriptionStatus(0)
   }
 
   const renderContent = () => {

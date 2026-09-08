@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabase";
 import { useSubscriptionActions } from "../hooks/useSubscriptionActions";
 import ConfirmDialog from "../components/ConfirmDialog";
 import {
+  canCancel,
   canPause,
   canResume,
   getStatusBadgeConfig,
@@ -300,14 +301,16 @@ const Profile = () => {
                       Resume
                     </button>
                   )}
-                  <button
-                    onClick={() => setCancelDialogOpen(true)}
-                    disabled={loadingAction !== null}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide bg-neutral-100 dark:bg-neutral-900 text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-all duration-150 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  >
-                    <X className="h-4 w-4" strokeWidth={2} />
-                    Cancel
-                  </button>
+                  {canCancel(subscription.status) && (
+                    <button
+                      onClick={() => setCancelDialogOpen(true)}
+                      disabled={loadingAction !== null}
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide bg-neutral-100 dark:bg-neutral-900 text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-all duration-150 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    >
+                      <X className="h-4 w-4" strokeWidth={2} />
+                      Cancel
+                    </button>
+                  )}
                 </div>
 
                 <Link
@@ -343,7 +346,7 @@ const Profile = () => {
       <ConfirmDialog
         open={cancelDialogOpen}
         title="Cancel Subscription?"
-        description="Your subscription will remain active until the end of the current billing period, then it won't renew. This can't be undone from here."
+        description="Your subscription will be cancelled immediately and access to premium features will end right away. This can't be undone from here."
         confirmLabel="Cancel Subscription"
         cancelLabel="Keep Subscription"
         isConfirming={loadingAction === "cancel"}
