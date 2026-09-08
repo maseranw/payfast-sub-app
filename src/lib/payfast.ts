@@ -1,8 +1,13 @@
-import { initPayFastClient, PayFastService } from '@ngelekanyo/payfast/client'
+import { initPayFastClient, PayFastService, setAuthTokenProvider } from '@ngelekanyo/payfast/client'
+import { supabase } from './supabase'
 
-// Initialize PayFast client with backend URL
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://your-backend.com'
 initPayFastClient(BACKEND_URL)
+
+setAuthTokenProvider(async () => {
+  const { data } = await supabase.auth.getSession()
+  return data.session?.access_token ?? null
+})
 
 export interface PaymentData {
   amount: string
