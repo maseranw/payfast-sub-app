@@ -118,13 +118,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       .filter((key): key is string => Boolean(key))
   }
 
-  const refreshUserData = async () => {
-    if (!user) return
-
+  const loadUserData = async (userId: string) => {
     try {
       const [profile, sub] = await Promise.all([
-        fetchUserProfile(user.id),
-        fetchUserSubscription(user.id)
+        fetchUserProfile(userId),
+        fetchUserSubscription(userId)
       ])
 
       setUserProfile(profile)
@@ -141,30 +139,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }
 
+  const refreshUserData = async () => {
+    if (!user) return
+    await loadUserData(user.id)
+  }
+
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
-        setUser(session?.user ?? null)
-        setLoading(false)
-        
-        if (session?.user) {
-          await refreshUserData()
+        const nextUser = session?.user ?? null
+        setUser(nextUser)
+
+        if (nextUser) {
+          await loadUserData(nextUser.id)
         } else {
           setUserProfile(null)
           setSubscription(null)
           setAllowedFeatures([])
         }
+
+        setLoading(false)
       }
     )
 
     return () => subscription?.unsubscribe()
   }, [])
-
-  useEffect(() => {
-    if (user) {
-      refreshUserData()
-    }
-  }, [user])
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
