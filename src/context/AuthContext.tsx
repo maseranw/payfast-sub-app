@@ -144,26 +144,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await loadUserData(user.id)
   }
 
+  const [authChecked, setAuthChecked] = useState(false)
+
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        const nextUser = session?.user ?? null
-        setUser(nextUser)
-
-        if (nextUser) {
-          await loadUserData(nextUser.id)
-        } else {
-          setUserProfile(null)
-          setSubscription(null)
-          setAllowedFeatures([])
-        }
-
-        setLoading(false)
+      (_event, session) => {
+        setUser(session?.user ?? null)
+        setAuthChecked(true)
       }
     )
 
     return () => subscription?.unsubscribe()
   }, [])
+
+  useEffect(() => {
+    if (!authChecked) return
+
+    let cancelled = false
+
+    const run = async () => {
+      if (user) {
+        await loadUserData(user.id)
+      } else {
+        setUserProfile(null)
+        setSubscription(null)
+        setAllowedFeatures([])
+      }
+
+      if (!cancelled) setLoading(false)
+    }
+
+    run()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user, authChecked])
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
