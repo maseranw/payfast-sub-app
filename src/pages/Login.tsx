@@ -70,7 +70,7 @@ const Login = () => {
         <div className="bg-neutral-50 dark:bg-neutral-950 shadow-2xl shadow-neutral-200/60 dark:shadow-none p-8 sm:p-10 animate-fade-in-up animate-delay-100">
           <form className="space-y-5" onSubmit={handleSubmit}>
             {isSignUp && (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="firstName" className="block text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-2">
                     First Name

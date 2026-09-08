@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Heart, Mail, Shield, FileText, HelpCircle } from 'lucide-react'
+import { Mail, Shield, FileText, HelpCircle } from 'lucide-react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -19,11 +19,6 @@ const Footer = () => {
               A powerful subscription management platform with premium features for text manipulation and creative tools.
               Built with modern technology for the best user experience.
             </p>
-            <div className="mt-8 flex items-center text-sm text-neutral-400 dark:text-neutral-500">
-              <span>Made with</span>
-              <Heart className="h-4 w-4 mx-1.5 text-red-500" strokeWidth={2} fill="currentColor" />
-              <span>using React, Supabase &amp; PayFast</span>
-            </div>
           </div>
 
           <div>
